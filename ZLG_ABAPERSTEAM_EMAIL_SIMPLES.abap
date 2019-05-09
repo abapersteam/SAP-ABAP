@@ -181,14 +181,11 @@ ENDFORM.
 *----------------------------------------------------------------------*
 FORM zf_status USING p_extab TYPE slis_t_extab.
 
-* Para a adição do botão para o envio do e-mail é necessário a cópia,
-* caso queira, da barra de ferramentas padrão, caso queira é possível
-* a criação do 0 (zero), porém, você terá que desenvolver pelo o menos
-* a lógica dos botões "indispensáveis", BACK, CANCEL, EXIT.
-* Qual o caminho mais fácil??? Copie o Standard e apague o que não quer :)
-* Para isso, acesse a transação SE80 e procure pelo Grupo de Função
-* SLVC_FULLSCREEN, depois vá para a pasta "Status GUI" e copie o objeto
-* STANDARD_FULLSCREEN, informe seu programa e o nome que desejar. Pronto
+* Para adição do botão, vamos fazer a cópia do Status GUI Standard.
+* Para isso, acesse a transação SE80 e filtre pelo grupo de funções
+* SLVC_FULLSCREEN, depois vá para a pasta Status GUI e copie o
+* objeto STANDARD_FULLSCREEN, informe o programa de destino desta
+* cópia, no caso este que você está desenvolvendo e pronto.
 
 * Abaixo do código temos o passo a passo para a criação do botão para o
 * envio do e-mail
@@ -208,8 +205,9 @@ FORM zf_user_command USING p_ucomm    LIKE sy-ucomm
   p_selfield-row_stable = abap_true.
 
   CASE p_ucomm.
-    WHEN c_env_mail.
+    WHEN c_env_mail. "Ação ao clicar no botão personalizado
 
+*     Envia o e-mail
       PERFORM zf_envio_email.
 
     WHEN OTHERS.
